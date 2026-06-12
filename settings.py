@@ -19,6 +19,9 @@ class Settings:
         self.APMC_PHONE_NUMBER_ID: str = os.getenv("APMC_PHONE_NUMBER_ID", "").strip()
         self.APMC_WEBHOOK_URL: str = os.getenv("APMC_WEBHOOK_URL", "").strip()
 
+        self.THS_PHONE_NUMBER_ID: str = os.getenv("THS_PHONE_NUMBER_ID", "").strip()
+        self.THS_WEBHOOK_URL: str = os.getenv("THS_WEBHOOK_URL", "").strip()
+
     @staticmethod
     def _get_required(key: str) -> str:
         value = os.getenv(key)

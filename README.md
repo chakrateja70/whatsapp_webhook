@@ -6,6 +6,7 @@ Receives Meta webhook events and forwards them to downstream services based on t
 |---|---|
 | `PPA_PHONE_NUMBER_ID` | `PPA_WEBHOOK_URL` |
 | `APMC_PHONE_NUMBER_ID` | `APMC_WEBHOOK_URL` |
+| `THS_PHONE_NUMBER_ID` | `THS_WEBHOOK_URL` |
 
 ## Setup
 
@@ -19,6 +20,9 @@ PPA_WEBHOOK_URL=
 
 APMC_PHONE_NUMBER_ID=
 APMC_WEBHOOK_URL=
+
+THS_PHONE_NUMBER_ID=
+THS_WEBHOOK_URL=
 ```
 
 2. Install dependencies:

@@ -40,6 +40,7 @@ PHONE_TO_SERVICE: dict[str, dict] = {}
 _routing_pairs = [
     (xsettings.PPA_PHONE_NUMBER_ID,  xsettings.PPA_WEBHOOK_URL,  "PPA"),
     (xsettings.APMC_PHONE_NUMBER_ID, xsettings.APMC_WEBHOOK_URL, "APMC"),
+    (xsettings.THS_PHONE_NUMBER_ID,  xsettings.THS_WEBHOOK_URL,  "THS"),
 ]
 
 for _phone_id, _url, _name in _routing_pairs:
@@ -50,7 +51,6 @@ for _phone_id, _url, _name in _routing_pairs:
 # ── Background forwarder ──────────────────────────────────────────────────────
 
 async def _forward_to_service(
-    service_name: str,
     service_url: str,
     raw_body: bytes,
     headers: dict[str, str],
@@ -63,7 +63,7 @@ async def _forward_to_service(
     """
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
-            resp = await client.post(service_url, content=raw_body, headers=headers)
+            await client.post(service_url, content=raw_body, headers=headers)
     except Exception:
         pass
 
@@ -122,7 +122,6 @@ async def webhook_receiver(request: Request, background_tasks: BackgroundTasks) 
 
         background_tasks.add_task(
             _forward_to_service,
-            service["name"],
             service["webhook_url"],
             raw_body,
             fwd_headers,
@@ -132,4 +131,4 @@ async def webhook_receiver(request: Request, background_tasks: BackgroundTasks) 
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", reload=False)
+    uvicorn.run("main:app", host="0.0.0.0", reload=True)
